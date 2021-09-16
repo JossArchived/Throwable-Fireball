@@ -8,9 +8,9 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemID;
 import cn.nukkit.level.format.FullChunk;
-import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import jossc.throwable.fireball.entity.EntityFireBall;
+import jossc.throwable.fireball.utils.NBTUtils;
 
 public class EventListener implements Listener {
 
@@ -26,21 +26,9 @@ public class EventListener implements Listener {
     FullChunk chunk = player
       .getLevel()
       .getChunk((byte) player.getX() >> 4, (byte) player.z >> 4);
-    CompoundTag compoundTag = new CompoundTag();
+    CompoundTag compoundTag = NBTUtils.generateFireBallNBTTo(player);
 
     EntityFireBall fireBall = new EntityFireBall(chunk, compoundTag, player);
-
-    fireBall.setPosition(new Vector3(player.x, player.y + 2, player.z));
-    fireBall.setMotion(
-      new Vector3(
-        -Math.sin(player.yaw / 180 * Math.PI) *
-        Math.cos(player.pitch / 180 * Math.PI),
-        -Math.sin(player.pitch / 180 * Math.PI),
-        Math.cos(player.yaw / 180 * Math.PI) *
-        Math.cos(player.pitch / 180 * Math.PI)
-      )
-    );
-    fireBall.setRotation(player.yaw, player.pitch);
     fireBall.spawnToAll();
     fireBall.setMotion(fireBall.getMotion().multiply(2));
 
