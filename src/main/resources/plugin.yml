@@ -1,0 +1,5 @@
+name: Throwable-Fireball
+main: jossc.throwable.fireball.Main
+api: 1.0.0
+version: '${project.version}'
+author: Josscoder
