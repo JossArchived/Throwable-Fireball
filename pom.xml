@@ -99,6 +99,14 @@
             <scope>provided</scope>
         </dependency>
 
+
+        <!-- Math Utils -->
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>1.10.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>

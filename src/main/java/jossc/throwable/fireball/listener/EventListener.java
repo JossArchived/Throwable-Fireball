@@ -7,6 +7,7 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemID;
+import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import jossc.throwable.fireball.entity.EntityFireBall;
@@ -31,6 +32,10 @@ public class EventListener implements Listener {
     EntityFireBall fireBall = new EntityFireBall(chunk, compoundTag, player);
     fireBall.spawnToAll();
     fireBall.setMotion(fireBall.getMotion().multiply(2));
+
+    player
+      .getLevel()
+      .addSound(player.asVector3f().asVector3(), Sound.MOB_GHAST_FIREBALL);
 
     event.setCancelled();
   }
