@@ -3,10 +3,10 @@ package jossc.throwable.fireball.entity;
 import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityProjectile;
-import cn.nukkit.event.entity.EntityExplosionPrimeEvent;
-import cn.nukkit.level.Explosion;
+import cn.nukkit.level.ParticleEffect;
 import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
 import jossc.throwable.fireball.utils.Utils;
@@ -68,18 +68,21 @@ public class EntityFireBall extends EntityProjectile {
     boolean hasUpdated = super.onUpdate(currentTick);
 
     int lg = 1200;
-    if (age > lg || isCollided) {
-      getLevel().addSound(asVector3f().asVector3(), Sound.RANDOM_EXPLODE);
-
-      EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 2);
-      server.getPluginManager().callEvent(event);
-
-      if (!event.isCancelled()) {
-        new Explosion(this, event.getForce(), this).explodeB();
-      }
-
+    if (
+      age > lg ||
+      isCollided ||
+      isInsideOfFire() ||
+      !isAlive() ||
+      isInsideOfWater() ||
+      isOnGround()
+    ) {
       close();
       kill();
+
+      Vector3 vector3 = asVector3f().asVector3();
+
+      getLevel().addSound(vector3, Sound.RANDOM_EXPLODE);
+      getLevel().addParticleEffect(vector3, ParticleEffect.LARGE_EXPLOSION_LEVEL);
 
       hasUpdated = true;
     }

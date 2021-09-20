@@ -8,14 +8,13 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemID;
 import cn.nukkit.level.Sound;
-import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import jossc.throwable.fireball.entity.EntityFireBall;
 import jossc.throwable.fireball.utils.NBTUtils;
 
 public class EventListener implements Listener {
 
-  @EventHandler(priority = EventPriority.HIGHEST)
+  @EventHandler(priority = EventPriority.NORMAL)
   public void onInteract(PlayerInteractEvent event) {
     Player player = event.getPlayer();
     Item item = event.getItem();
@@ -24,12 +23,13 @@ public class EventListener implements Listener {
       return;
     }
 
-    FullChunk chunk = player
-      .getLevel()
-      .getChunk((byte) player.getX() >> 4, (byte) player.z >> 4);
     CompoundTag compoundTag = NBTUtils.generateFireBallNBTTo(player);
 
-    EntityFireBall fireBall = new EntityFireBall(chunk, compoundTag, player);
+    EntityFireBall fireBall = new EntityFireBall(
+      player.getChunk(),
+      compoundTag,
+      player
+    );
     fireBall.spawnToAll();
     fireBall.setMotion(fireBall.getMotion().multiply(2));
 
