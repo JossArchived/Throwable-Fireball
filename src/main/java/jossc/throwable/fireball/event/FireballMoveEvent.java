@@ -18,6 +18,10 @@ public class FireballMoveEvent extends EntityEvent {
     return spawnAuroraParticle;
   }
 
+  public void setSpawnAuroraParticle() {
+    setSpawnAuroraParticle(true);
+  }
+
   public void setSpawnAuroraParticle(boolean spawnAuroraParticle) {
     this.spawnAuroraParticle = spawnAuroraParticle;
   }
