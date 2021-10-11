@@ -7,9 +7,9 @@ import cn.nukkit.math.Vector3;
 import org.joml.Matrix3f;
 import org.joml.Vector3f;
 
-public class Utils {
+public class ParticlesUtils {
 
-  public static void coolFx(Location location, Vector3 direction) {
+  public static void invokeAurora(Location location, Vector3 direction) {
     Matrix3f rotationMatrix = new Matrix3f()
       .setLookAlong(
         new Vector3f(

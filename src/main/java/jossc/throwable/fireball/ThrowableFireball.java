@@ -7,10 +7,10 @@ import jossc.throwable.fireball.entity.EntityFireBall;
 import jossc.throwable.fireball.listener.EventListener;
 import lombok.Getter;
 
-public class Main extends PluginBase {
+public class ThrowableFireball extends PluginBase {
 
   @Getter
-  private static Main instance;
+  private static ThrowableFireball instance;
 
   @Override
   public void onEnable() {
